@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .color-red {color:red}
+        .is-loading {background-color: red;}
+    </style>
+</head>
+<body>
+
+
+    <div id="root">
+
+        <h1 :class="className">Hello World</h1>
+
+        
+        <button v-bind:title="title">Hover Over me</button></br>
+
+        <button :class="{ 'is-loading': isLoading }" @click="toggleClass">Toggle Me</button></br>
+        
+        <button :disabled="disableMe" @click="disableButton">Disable Me</button>
+
+        <h1 v-text="new Date()"></h1>
+     
+        <ul>
+            <li v-for="name in names" v-text="name"></li>
+        </ul>
+
+
+        <input type="text" v-model='newName'>
+        <button v-on:click="addName">Add Name</button>
+
+        <h2>{{reversedMessage}}</h2></br>
+
+
+        <h2>All tasks </h2>
+
+
+        <ul>
+            <li v-for="task in tasks" v-text="task.description"></li>
+        </ul>
+
+        <h2>Incomplete tasks</h2>
+
+
+        <ul>
+            <li v-for="task in incompleteTasks" v-text="task.description"></li>
+        </ul>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+
+
+        new Vue({
+
+            el: '#root',
+
+            data: {
+                className: "color-red",
+                title: 'this is being set through javascript',
+                newName: '',
+                names: ['Joe', 'mark', 'Jane', 'Jack'],
+                isLoading: false,
+                disableMe: false,
+                message: "Hello World",
+
+
+                tasks: [
+                    {description: "Continue Vue Learning", completed: true},
+                    {description: "Get Good at Vue", completed: false},
+                    {description: "Hoover Downstairs", completed: false},
+                    {description: "Give CodeNation laptop back ", completed: false},
+                    {description: "use foam Roller", completed: true},
+                ]
+
+                
+            },
+
+
+            methods: {
+                addName() {
+                    this.names.push(this.newName);
+                    this.newName = ''
+                },
+                toggleClass() {
+                    this.isLoading = true
+
+                },
+                disableButton(){
+                    this.disableMe = true
+
+                }
+            },
+            computed:{
+
+                reversedMessage(){
+                    return this.message.split('').reverse().join('');
+                },
+
+                incompleteTasks(){
+                    return this.tasks.filter(task => ! task.completed)
+
+                }
+
+            }
+
+
+        });
+    </script>
+
+
+</body>
+</html>
+
+
+<!-- if you put the vue instance in a global variable it will make the vue global -->
+<!-- Mounted () this will automatically be called when everything has been complected that needs to be -->
+<!-- v-on then the argument  -->
+<!-- v-on:keyUp - indicates after every key stroke   -->
+<!-- v-on can be replaces but the @ symbol then the perimeter -->
+<!-- v-bind: can be abbreviated to just : -->
